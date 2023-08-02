@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gcp-essentials
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gcp-essentials-serv
+  template:
+    metadata:
+      labels:
+        app: gcp-essentials-serv
+    spec:
+      containers:
+        - name: gcp-essentials-container
+          image: gcr.io/natural-caster-392523/gcp-api
+          ports:
+            - containerPort: 8080

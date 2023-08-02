@@ -1,0 +1,62 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: Gcp Backend
+  description: Gcp backend service used for Developing APIs 
+servers:
+  - url: "http://34.122.187.173:8080/api/v1"
+    description: Gcp backend for Developing APIs 
+tags:
+  - name: persons
+    description: User CRUD
+paths:
+  /persons:
+    get:
+      summary: Retrieve user
+      operationId: retrieveUsers
+      tags:
+        - persons
+      responses:
+        '200':
+          description: user retrieved
+          content:
+            application/json:    
+              schema:
+                $ref: "#/components/schemas/UserResponse"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      description: basic auth
+      scheme: basic
+  schemas:
+    UserResponse:
+      description: user response
+      additionalProperties: true
+      type: array
+      items:
+        type: object
+        properties:
+          personId:
+            description: id
+            type: integer
+          name:
+            description: name
+            type: string
+          age:
+            description: age
+            type: integer
+    Error:
+      type: object
+      description: error response
+      required:
+        - mensaje
+      properties:
+        mensaje:
+          type: string
